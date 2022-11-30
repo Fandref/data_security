@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="task-header">
+        <h1>Лабораторна робота №5<sup>12</sup></h1>
+        <p><b>Тема:</b> Змішані симетричні криптосистеми. (Багатоалфавітна криптосистема Віженера)</p>
+        <p><b>Мета:</b> Реалізувати багатоалфавітну криптосистему Віженера</p>
+    </div>
+    <div class="program-container">
+        <div class="program">
+            <div class="form">
+                <div class="program-toggle">
+                    <input type="text" hidden name="operation" id="operation" value="crypt">
+                    <div class="toggle-item active" data-value="crypt">Зашифрувати</div>
+                    <div class="toggle-item" data-value="decrypt">Розшифрувати</div>
+                </div>
+                <div class="field">
+                    <label for="input-text" data-label="Вхідний текст">Вхідний текст</label>
+                    <input type="text" name="input-text" id="input-text">
+                </div>
+                <div class="field">
+                    <label for="move-key" data-label="Ключ переміщення">Ключ переміщення</label>
+                    <input type="text" name="move-key" id="move-key">
+                </div>
+                <div class="field">
+                    <label for="key" data-label="Ключ">Ключ</label>
+                    <input type="text" name="key" id="key">
+                </div>
+                <div class="button-row">
+                    <button id="submit-command" type="button">Виконати операцію</button>
+                </div>
+                <div class="result">
+                    <div class="result-data">
+                    </div>
+                    <div class="tool-bar">
+                        <button type="button" class="copy" title="копіювати"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .program-toggle{
+        margin-bottom: 14px;
+    }
+    .program{
+        /* max-width: 600px; */
+        min-width: 50%;
+    }
+    .button-row{
+        text-align: center;
+    }
+    .result{
+        opacity: 0;
+        height: 0;
+        transition: all .5s ease;
+    }
+    .result.open{
+        opacity: 1;
+        height: max-content;
+    }
+    .tool-bar{
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    @media (max-width: 864px) {
+        .program{
+            /* max-width: 600px; */
+            min-width: 80%;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .program{
+            width: 100%;
+        }
+    }
+    
+</style>
+
+<script>
+    alert('sdd')
+</script>
+<!-- <=% require('js/test.js') %=> -->

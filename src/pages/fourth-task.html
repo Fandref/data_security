@@ -1,0 +1,121 @@
+
+<div class="container">
+    <div class="task-header">
+        <h1>Лабораторна робота №4<sup>11</sup></h1>
+        <p><b>Тема:</b> Блокові криптографічні алгоритми. (Шифри з використанням комбінованих
+            перестановок, шифри-трафарети, квадрат та прямокутник Кардано)</p>
+        <p><b>Мета:</b> Реалізувати криптографічний алгоритм шифру квадрата Кардано</p>
+    </div>
+    <div class="program-container">
+        <div class="program">
+            <div class="form">
+                <div class="program-toggle">
+                    <input type="text" hidden name="operation" id="operation" value="crypt">
+                    <div class="toggle-item active" data-value="crypt">Зашифрувати</div>
+                    <div class="toggle-item" data-value="decrypt">Розшифрувати</div>
+                </div>
+                <div class="field">
+                    <label for="input-text" data-label="Вхідний текст">Вхідний текст</label>
+                    <input type="text" name="input-text" id="input-text">
+                </div>
+                <div class="pattern-field">
+                    <label for="pattern" data-label="Ключ-трафарет">Ключ-трафарет</label>
+                    <div class="pattern-input" data-size="2" id="pattern"></div>
+                </div>
+                <div class="button-row">
+                    <button id="submit-command" type="button">Виконати операцію</button>
+                </div>
+                <div class="result">
+                    <div class="result-data">
+                    </div>
+                    <div class="tool-bar">
+                        <button type="button" class="copy" title="копіювати"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .program-toggle{
+        margin-bottom: 14px;
+    }
+    .program{
+        /* max-width: 600px; */
+        min-width: 50%;
+    }
+    .button-row{
+        text-align: center;
+    }
+    .result{
+        opacity: 0;
+        height: 0;
+        transition: all .5s ease;
+    }
+    .result.open{
+        opacity: 1;
+        height: max-content;
+    }
+    .tool-bar{
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    .pattern-field{
+        margin: 20px 0;
+    }
+
+    .pattern-field label{
+        width: 100%;
+        display: block;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .pattern-input{
+        display: grid;
+        margin: 10px auto;
+        width: 20vw;
+        height: 20vw;
+        border: 2px solid #000;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .pattern-input .cell{
+        border: 1px solid black;
+        cursor: pointer;
+    }
+
+    .pattern-input .cell:hover{
+        background: rgb(250, 234, 234);
+    }
+
+    .pattern-input .cell.active{
+        background: rgb(252, 205, 205);
+    }
+
+    .pattern-input .cell.error{
+        background: rgb(255, 68, 68);
+    }
+
+    @media (max-width: 864px) {
+        .program{
+            /* max-width: 600px; */
+            min-width: 80%;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .program{
+            width: 100%;
+        }
+    }
+    
+</style>
+
+<script>
+    alert('sdd')
+</script>
+<!-- <=% require('js/test.js') %=> -->
