@@ -1,7 +1,5 @@
-const { rotate, flatten, reshapeArray, getChars} = require("./helpers");
+const { rotate, flatten, reshapeArray, getChars, separator} = require("./helpers");
 const { checkKeyPattern, getArraySize, countRotate } = require("./square_kardano_helpers");
-
-const separator = '▌';
 
 function isCyrillicAlpabet(text){
     const сyrillicPattern = /[А-ієїя]/i;

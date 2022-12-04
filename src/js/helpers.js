@@ -2,6 +2,8 @@ const upperCaseOffset = 64;
 const lowerCaseOffset = 96;
 const countLetters = 27;
 
+const separator = '▌';
+
 function convertNumberToNumberOfLimit(number, limit = null){
     const currentLimit = limit || countLetters;
     return number >= currentLimit ? number%currentLimit : number;
@@ -12,11 +14,11 @@ function getCharOffsetCase(asciiChar){
 }
 
 
-function reshapeArray(input_array, base_length){
+function reshapeArray(input_array, base_length, nullable_value = null){
     const reshaped = [];
     while(input_array.length){
         if(input_array.length < base_length){
-            const conpens_array = new Array(base_length - input_array.length).fill(null);
+            const conpens_array = new Array(base_length - input_array.length).fill(nullable_value);
             reshaped.push(input_array.splice(0, input_array.length).concat(conpens_array));
         }
         else{
@@ -115,4 +117,4 @@ function getChars(length, asciiOffset = 64){
     return charArray;
 }
 
-module.exports = {convertToBase, convertNumberToNumberOfLimit, convertNumbersToChars, scaleKeyToLength, convertCharsToNumbers, flatten, rotate, reshapeArray, getChars}
+module.exports = {convertToBase, convertNumberToNumberOfLimit, convertNumbersToChars, scaleKeyToLength, convertCharsToNumbers, flatten, rotate, reshapeArray, getChars, separator}
