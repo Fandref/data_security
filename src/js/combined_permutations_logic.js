@@ -1,4 +1,4 @@
-const {flatten, scaleKeyToLength, reshapeArray} = require('./helpers')
+const {flatten, scaleKeyToLength, reshapeArray, separator: nullable_value} = require('./helpers')
 
 function getPermutationsMap(word){
     let word_array = word.split('');
@@ -56,10 +56,10 @@ function reflectPermutationsMap(permutations_map){
 
 function crypt(input_text, key){
     const row_count = Math.ceil(input_text.length / key.length);
-    const text_array = reshapeArray(input_text.split(''), key.length);
+    const text_array = reshapeArray(input_text.split(''), key.length, nullable_value);
     const second_key = scaleKeyToLength(key, row_count);
     const permutation_map = getPermutationsMap(key);
-    const second_permutation_map = getPermutationsMap(second_key); 
+    const second_permutation_map = getPermutationsMap(second_key);
     const permutation_array = permutationArray(permutationArray(text_array, second_permutation_map), permutation_map, 1);
     
     let crypted_string = '';
@@ -92,7 +92,7 @@ function decrypt(crypted_text, key){
     
     const result_array = permutationArray(permutationArray(crypted_array, permutation_map, 1), second_permutation_map)
 
-    return flatten(result_array).join('');
+    return flatten(result_array).join('').split(nullable_value)[0];
 }
 
 module.exports = {getPermutationsMap, permutationArray, reflectPermutationsMap, crypt, decrypt}
