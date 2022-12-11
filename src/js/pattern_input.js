@@ -1,10 +1,8 @@
 function changeValue(e){
     const changeEvent = new Event('change');
     const cell = this;
-    
     const value = JSON.parse(cell.dataset.value);
     const parentElement = cell.parentElement;
-    // debugger;
     let mainValue = parentElement.value;
 
     if(cell.classList.contains('active')){
@@ -30,21 +28,20 @@ function changeSize(targetInput){
 }
 
 function mutationValue(target){
-    debugger
     const changeEvent = new Event('change');
     let mainValue = JSON.parse(target.dataset.value) || [];
     const cells = target.querySelectorAll(`.cell`);
-    console.log(mainValue)
+
     cells.forEach((cell) => {
         cell.classList.remove('error');
         cell.classList.remove('active');
-    })
+    });
 
     mainValue.forEach((cellPosition) => {
         const cell = document.querySelector(`.cell[data-value='${JSON.stringify(cellPosition)}']`);
         cell.classList.add('active');
             
-    })
+    });
     
 
     target.value = mainValue;
@@ -92,8 +89,6 @@ function createPatternInput(element){
         attributes: true,
         attributeFilter: ['data-size', 'data-value'],
         attributeOldValue: true,
-        // childList: true,
-        // subtree: true
     };
     const {size, value} = element.dataset;
     

@@ -8,7 +8,7 @@ const inputTextInput = document.getElementById('input-text');
 const patternInput = document.getElementById('pattern');
 
 function isAllValid(){
-    return !patternInput.error && inputTextInput.value.length > 0;
+    return (!patternInput.error && patternInput.value.length > 0) && inputTextInput.value.length > 0;
 }
 
 function runOperation(){
@@ -44,17 +44,18 @@ function checkPatternInput(e){
 
         if(Array.isArray(validateResult[0])){
             validateResult.forEach((error) => {
-                const errorCell = document.querySelector(`.cell[data-value='${JSON.stringify(error)}']`);
-                errorCell.classList.add('error');
+                const errorCell = document.querySelector(`.cell.active[data-value='${JSON.stringify(error)}']`);
+                if(errorCell)
+                    errorCell.classList.add('error');
             });
             
-            label.innerText ='Ключ-трафарет більший за тексту';
+            label.innerText ='Ключ-трафарет більший трафарету';
             
 
         }
         else{
-            console.log(validateResult);
             const errorCell = document.querySelector(`.cell[data-value='${JSON.stringify(validateResult)}']`);
+
             errorCell.classList.add('error');
             label.innerText ='Ключ-трафарет містить накладку';
         }
@@ -91,19 +92,14 @@ function changeSizePatternInput(e){
 }
 
 export default function(){
-    // const textInput = document.getElementById('')
+    const copyButton = document.querySelector('.copy');
+    const runActionButton = document.querySelector('#submit-command');
+
     compilePatternInput('pattern-input');
 
     patternInput.addEventListener('change', checkPatternInput);
 
     inputTextInput.addEventListener('input', changeSizePatternInput);
-    const runActionButton = document.querySelector('#submit-command');
-    // const allInput = document.querySelectorAll('.field input');
-    const copyButton = document.querySelector('.copy');
-
-    // allInput.forEach(input => {
-    //     input.addEventListener('input', inputValidateHandler);
-    // });
 
     runActionButton.addEventListener('click', runOperation);
     copyButton.addEventListener('click', copyButtonHandler);

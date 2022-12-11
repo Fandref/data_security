@@ -16,19 +16,16 @@ function isCyrillicAlpabet(text){
 function crypt(inputText, keyPattern){
     const arraySize = getArraySize(inputText);
 
-    if(typeof(checkKeyPattern(keyPattern, arraySize)) !== 'boolean'){
+    if(typeof(checkKeyPattern(keyPattern, arraySize)) !== 'boolean')
         return;
-    }
 
     const asciiOffset = isCyrillicAlpabet(inputText) ? 'А'.charCodeAt() : 'A'.charCodeAt();
     const countAddedToBase = keyPattern.length*countRotate - inputText.length-1;
-    
     let inputChars = inputText.split('');
-    inputChars.push(separator);
-    inputChars = inputChars.concat(getChars(countAddedToBase, asciiOffset-1));
-    
     let cryptedArray = new Array(arraySize).fill(null);
     
+    inputChars.push(separator);
+    inputChars = inputChars.concat(getChars(countAddedToBase, asciiOffset-1));
     cryptedArray = cryptedArray.map(a => new Array(arraySize).fill(null));
 
     for(let i = 0; i<countRotate; i++){
@@ -38,11 +35,8 @@ function crypt(inputText, keyPattern){
         if(i<countRotate-1)
             cryptedArray = rotate(cryptedArray);
     }
-    // if(countRotate > 1)
-    //     cryptedArray = rotate(cryptedArray);
 
     if(Math.pow(arraySize, 2) !== inputText.length){
-        
         const addedChars = getChars(Math.pow(arraySize, 2) - inputChars.length, asciiOffset);
 
         for(let [indexRow, row] of cryptedArray.entries()){
@@ -52,7 +46,6 @@ function crypt(inputText, keyPattern){
             }
         }
     }
-    console.log(flatten(cryptedArray).join(''));
     return flatten(cryptedArray).join('');
 
 }

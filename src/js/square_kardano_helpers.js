@@ -8,8 +8,6 @@ function checkKeyPattern(keyPattern, size){
         if(!Array.isArray(subarray))
         throw new Error('In key pattern must be array');
     });
-    // if(rotateCount < 0 || rotateCount > 4)
-    //     throw new Error('rotate count must be more than 0 and not more than 4');
 
     if(Math.pow(size, 2) < keyPattern.length*countRotate){
         return keyPattern.slice(Math.ceil(keyPattern.length/countRotate));
