@@ -99,8 +99,42 @@ function createPatternInput(element){
     observer.observe(element, config);
 }
 
-export function compilePatternInput(classElements){
+function compilePatternInput(classElements){
     const elements = document.querySelectorAll('.'+classElements);
 
     elements.forEach((element)=>{createPatternInput(element)})
 }
+
+function disablePatternError(patternInput){
+    const label = document.querySelector(`label[for='${patternInput.id}']`);
+    const oldErrorCells = document.querySelectorAll('.cell.error');
+        if(oldErrorCells){
+            oldErrorCells.forEach((oldErrorCell) => oldErrorCell.classList.remove('error'));
+        }
+        if(patternInput.error){
+            label.innerText = label.dataset.label;
+            label.classList.remove('error');
+            patternInput.error = false;
+        }
+        
+}
+
+function activatePatternError(patternInput, errorText, errorCells=[]){
+    const label = document.querySelector(`label[for='${patternInput.id}']`);
+    if(!Array.isArray(errorCells))
+        throw new Error('errorCells must be array')
+    
+    disablePatternError(patternInput);
+    
+    errorCells.forEach((error) => {
+        const errorCell = document.querySelector(`.cell.active[data-value='${JSON.stringify(error)}']`);
+        if(errorCell)
+            errorCell.classList.add('error');
+    });
+
+    patternInput.error = true;
+    label.innerHTML = errorText;
+    label.classList.add('error');
+}
+
+module.exports = {compilePatternInput, activatePatternError, disablePatternError};

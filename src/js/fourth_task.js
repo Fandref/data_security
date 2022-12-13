@@ -1,8 +1,8 @@
 // function iss
 import {crypt, decrypt} from './square_kardano';
 import {copyButtonHandler} from './client_helpers';
-import {compilePatternInput} from './pattern_input';
-import { checkKeyPattern, getArraySize } from './square_kardano_helpers';
+import {activatePatternError, compilePatternInput, disablePatternError} from './pattern_input';
+import { checkKeyPattern, countRotate, getArraySize } from './square_kardano_helpers';
 
 const inputTextInput = document.getElementById('input-text');
 const patternInput = document.getElementById('pattern');
@@ -21,11 +21,25 @@ function runOperation(){
     }
 
     const inputText = document.getElementById('input-text').value;
-    const key = document.getElementById('pattern').value;
+    const patternInput = document.getElementById('pattern');
+    const key = patternInput.value;
     const operation = document.querySelector('#operation').value;
     const resultData = document.querySelector('.result-data');
 
-    console.log(resultData);
+    if(operation === 'crypt'){
+        if(inputText.length > key.length*countRotate){
+            console.log(Math.ceil(inputText.length/countRotate));
+            activatePatternError(patternInput, `Ключ-трафарет не покриває вхідний текст.<br>
+            Має бути принаймні ${Math.ceil(inputText.length/countRotate)} позначок в трафареті`);
+
+            return;
+        }
+        else{
+            disablePatternError(patternInput);
+        }
+    }
+
+
     resultData.innerText = operations[operation](inputText, key);
 
     document.querySelector('.result').classList.add('open');
@@ -35,46 +49,18 @@ function runOperation(){
 function checkPatternInput(e){
     const value = this.value;
     const validateResult = checkKeyPattern(value, this.dataset.size);
-    const label = document.querySelector(`label[for='${this.id}']`)
+    const label = document.querySelector(`label[for='${this.id}']`);
+
     if(typeof validateResult !== 'boolean'){
-        const oldErrorCell = document.querySelector('.cell.error');
-        if(oldErrorCell){
-            oldErrorCell.classList.remove('error');
-        }
-
-        if(Array.isArray(validateResult[0])){
-            validateResult.forEach((error) => {
-                const errorCell = document.querySelector(`.cell.active[data-value='${JSON.stringify(error)}']`);
-                if(errorCell)
-                    errorCell.classList.add('error');
-            });
-            
-            label.innerText ='Ключ-трафарет більший трафарету';
-            
-
-        }
-        else{
-            const errorCell = document.querySelector(`.cell[data-value='${JSON.stringify(validateResult)}']`);
-
-            errorCell.classList.add('error');
-            label.innerText ='Ключ-трафарет містить накладку';
-        }
+        const errorText = Array.isArray(validateResult[0]) ? 'Ключ-трафарет більший трафарету' : 'Ключ-трафарет містить накладку';
+        
+        activatePatternError(this, errorText, validateResult);
         this.error = true;
         label.classList.add('error');
-        
-        
     }
     else{
-        const oldErrorCell = document.querySelector('.cell.error');
-        if(oldErrorCell){
-            oldErrorCell.classList.remove('error');
-        }
-        label.innerText = label.dataset.label;
-        label.classList.remove('error');
-        this.error = false;
+        disablePatternError(this);
     }
-
-
 }
 
 function changeSizePatternInput(e){
