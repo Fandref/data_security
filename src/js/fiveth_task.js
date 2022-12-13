@@ -1,4 +1,3 @@
-// function iss
 import {crypt, decrypt} from './vizenera_logic';
 import {copyButtonHandler, isAllValid} from './client_helpers';
 
@@ -9,10 +8,7 @@ function moveKeyValidateHandler(e){
     const fieldBlock = field.parentElement;
     const label = fieldBlock.querySelector('label');
     const labelDefault = label.dataset.label;
-
     const successPattern = /^[\d, ]+$/;
-
-
 
     if(value.length > 0 && !successPattern.test(value)){
         label.classList.add('error');
@@ -30,10 +26,7 @@ function inputValidateHandler(e){
     const fieldBlock = field.parentElement;
     const label = fieldBlock.querySelector('label');
     const labelDefault = label.dataset.label;
-
     const successPattern = /^[^\d]+$/;
-
-
 
     if(value.length > 0 && !successPattern.test(value)){
         label.classList.add('error');
@@ -65,20 +58,6 @@ function runOperation(){
     document.querySelector('.result').classList.add('open');
     
 }
-
-// export default function(){
-//     const runActionButton = document.querySelector('#submit-command');
-//     const allInput = document.querySelectorAll('.field input');
-//     const copyButton = document.querySelector('.copy');
-
-//     allInput.forEach(input => {
-//         input.addEventListener('input', inputValidateHandler);
-//     });
-
-//     runActionButton.addEventListener('click', runOperation);
-//     copyButton.addEventListener('click', copyButtonHandler);
-    
-// }
 
 export default function(){
     const wordInput = document.getElementById('input-text');

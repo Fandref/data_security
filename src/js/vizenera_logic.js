@@ -70,32 +70,30 @@ const ukrainianAlphabet = [
     "ю",
     "я",
 ];
-
 const generatedBase = generateBase(); 
 
 function createSquare(base, moveMap){
     const square = {};
-
-    const copiedBase = [...base]
+    const copiedBase = [...base];
     const movedBase = [];
 
     moveMap.forEach((index) => {
         movedBase.push(copiedBase[index]);
-        delete copiedBase[index]
+        delete copiedBase[index];
     })
 
     while(copiedBase.length > 0){
         const shiftedChar = copiedBase.shift();
         if(shiftedChar) 
-            movedBase.push(shiftedChar)
+            movedBase.push(shiftedChar);
     }
 
     base.forEach((row) => {
-        square[row] = {}
+        square[row] = {};
         base.forEach((column, index) => {
             square[row][column] = movedBase[index];
         })
-        movedBase.push(movedBase.shift())
+        movedBase.push(movedBase.shift());
     })
     return square;
 }
@@ -104,10 +102,8 @@ function createSquare(base, moveMap){
 function generateBase(){
     const englishASCIOffsetCaps = 'A'.charCodeAt() - 1;
     const englishASCIOffset = 'a'.charCodeAt() - 1;
-
     const englishAlphabetCaps = getChars(countLetterEnglish, englishASCIOffsetCaps);
     const englishAlphabet = getChars(countLetterEnglish, englishASCIOffset);
-
     const base = [...englishAlphabetCaps, ...englishAlphabet, ...ukrainianAlphabet, ' '];
     
     return base;
@@ -116,6 +112,7 @@ function generateBase(){
 function crypt(inputText, moveKey, key){
     const inputChars = inputText.split('');
     const scaledKey = scaleKeyToLength(key, inputChars.length).split('');
+
     const squareForCrypt = createSquare(generatedBase, moveKey);
 
     const cryptedChars = inputChars.map((char) => {
